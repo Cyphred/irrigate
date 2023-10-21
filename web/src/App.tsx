@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
+import Irrigations from "./pages/Irrigations";
 import AppLayout from "./pages/AppLayout";
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<AppLayout />}>
-          <Route path="" element={<Dashboard />} />
+          <Route path="" element={<Irrigations />} />
         </Route>
       </Routes>
     </BrowserRouter>

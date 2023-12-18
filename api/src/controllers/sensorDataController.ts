@@ -38,7 +38,7 @@ export const logSensorData = async (
     if (!stateString) {
       const newState: StateData = {
         id,
-        distance,
+        distance: parseInt(process.env.HEIGHT_OFFSET ?? "5") - distance,
         gateOpen: {
           expected: false,
           current: gateOpen,

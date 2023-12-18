@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  mongodb:
+    container_name: irrigate_mongodb
+    image: mongo:latest
+    command: mongod --auth
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongodb
+      MONGO_INITDB_ROOT_PASSWORD: mongodb
+      MONGO_INITDB_DATABASE: mongodb
+      MONGODB_DATA_DIR: /data/db/main
+      MONGODB_LOG_DIR: /dev/null
+    volumes:
+      - ./data/main:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - mongodb
+
+  redis:
+    container_name: irrigate_redis
+    image: redis/redis-stack:latest
+    ports:
+      - 6379:6379
+      - 8801:8001 # RedisInsight
+    networks:
+      - redis
+
+  api:
+    container_name: irrigate_api
+    build: ./api
+    ports:
+      - 8000:8000
+    depends_on:
+      - mongodb
+      - redis
+    volumes:
+      - ./api:/app/api/
+    networks:
+      - mongodb
+      - redis
+
+  employee-web:
+    container_name: irrigate_web
+    build: ./web
+    ports:
+      - 3000:3000
+    volumes:
+      - ./web:/app/web
+    depends_on:
+      - api
+
+networks:
+  mongodb:
+    driver: bridge
+  redis:
+    driver: bridge

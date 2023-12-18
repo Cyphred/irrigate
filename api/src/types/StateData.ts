@@ -1,7 +1,10 @@
 type StateData = {
   id: number;
   distance: number;
-  gateOpen: boolean;
+  gateOpen: {
+    expected: boolean;
+    current: boolean;
+  };
   flowRate: number;
   volume: number;
   timestamp: number;

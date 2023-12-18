@@ -24,13 +24,14 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  res.set("Cache-Control", "no-store");
+  next();
+});
+
 // IMPORTANT NOTE
 // Change the origin to the domain during production
-app.use(
-  cors({
-    origin: ["localhost"],
-  })
-);
+app.use(cors());
 
 // Load in root router
 app.use("/", router);

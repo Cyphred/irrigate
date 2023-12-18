@@ -53,8 +53,20 @@ export const logSensorData = async (
       return res.status(200).json({ message: "New state created" });
     } else {
       const state: StateData = JSON.parse(stateString);
-      state.timestamp = new Date().getTime();
-      await redis.set(`state:${id}`, JSON.stringify(state));
+
+      const newState = {
+        id,
+        waterLevel: parseInt(process.env.HEIGHT_OFFSET ?? "5") - distance,
+        gateOpen: {
+          expected: state.gateOpen.expected,
+          current: gateOpen,
+        },
+        flowRate,
+        volume,
+        timestamp: new Date().getTime(),
+      };
+
+      await redis.set(`state:${id}`, JSON.stringify(newState));
 
       if (state.gateOpen.expected === true) {
         return res.status(201).json();

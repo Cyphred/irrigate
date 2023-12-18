@@ -4,7 +4,8 @@ dotenv.config();
 
 export default async () => {
   const redisClient = createClient({
-    password: process.env.REDIS_PASSWORD,
+    // Add this back if the server uses a password
+    // password: process.env.REDIS_PASSWORD,
     socket: {
       host: process.env.REDIS_HOST,
       port: parseInt(process.env.REDIS_PORT || "6379", 10),

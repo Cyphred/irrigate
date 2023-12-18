@@ -1,4 +1,3 @@
-import { UserOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme, Image, Flex, Typography } from "antd";
 import { useState } from "react";
@@ -24,10 +23,7 @@ function getItem(
   } as MenuItem;
 }
 
-const items: MenuItem[] = [
-  getItem("Irrigations", "1", <WaterIcon />),
-  getItem("User", "sub1", <UserOutlined />, [getItem("Log out", "5")]),
-];
+const items: MenuItem[] = [getItem("Irrigation Control", "1", <WaterIcon />)];
 
 export default function AppLayout() {
   const [collapsed, setCollapsed] = useState(false);
@@ -46,6 +42,7 @@ export default function AppLayout() {
           <Image
             src={collapsed ? "/icon.png" : "/logo.png"}
             style={{ height: 52 }}
+            preview={false}
           />
         </Flex>
         <Menu

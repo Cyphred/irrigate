@@ -1,15 +1,16 @@
 import dotenv from "dotenv";
 import express from "express";
-import mongoose from "mongoose";
 import cors from "cors";
+import router from "./routes.js";
+import getRedisClient from "./common/getRedisClient.js";
 
 // Loads .env data
 dotenv.config();
 
-console.log("Attempting to connect to mongodb...");
-
-// Connect to db
-// await mongoose.connect(process.env.MONGO_URI);
+console.log("Attempting to connect to redis...");
+const redis = await getRedisClient();
+console.log("Connected to redis");
+await redis.quit();
 
 // Create express app
 const app = express();
@@ -32,7 +33,7 @@ app.use(
 );
 
 // Load in root router
-// app.use("/api", rootRouter);
+app.use("/", router);
 
 let port = process.env.PORT;
 if (!port) port = "8000";

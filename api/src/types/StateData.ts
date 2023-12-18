@@ -1,6 +1,6 @@
 type StateData = {
   id: number;
-  distance: number;
+  waterLevel: number;
   gateOpen: {
     expected: boolean;
     current: boolean;
